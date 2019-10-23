@@ -128,11 +128,11 @@ class RegressionModel(AbstractModel):
         if self.task == 'classification':
             out = Dense(3, activation='softmax', name='dense4')(bn)
         else:
-            out = Dense(1, activation='linear', name='dense4')(bn)
+            out = Dense(1, activation='softsign', name='dense4')(bn)
 
         self.model = Model(inputs=inp, outputs=out)
 
-        plot_model(self.model,to_file="./tests/BostonHousing/model_img.png",show_shapes=True,show_layer_names=True)
+        #plot_model(self.model,to_file="./tests/BostonHousing/model_img.png",show_shapes=True,show_layer_names=True)
 
         return self.model
 
@@ -147,7 +147,7 @@ class RegressionModel(AbstractModel):
         if self.x_train is None:
             raise ValueError('x_train is None')
 
-        #return 0.1
+        return 0.1
 
         if(len(self.model.layers)!=2):
             penultimate_activ_func = K.function([self.model.layers[0].input], [self.model.layers[-2].output])
@@ -208,8 +208,8 @@ class RegressionModel(AbstractModel):
 
         #plt.plot(np.arange(len(gradient_list)),gradient_list)
         #plt.show()
+        #return lr/2
         return lr
-        #return lr
     def plot_Kz(self):
         """
         Plots Kz
